@@ -1,0 +1,14 @@
+Q. Explain what the simple List component does
+
+Ans - In ReactJS, the Simple List component is a reusable and modular UI element that can be easily integrated into any React application to display
+a collection of items as a list.
+It is a powerful and flexible tool for displaying lists of data in a clear and organized way.
+
+The code  is a React component that represents a List with selectable items. It is composed of two sub-components, the SingleListItem and the ListComponent.The
+SingleListItem is responsible for rendering each item of the list as a single li element. It takes in several props, including the index of the item,
+whether or not it is selected, a click handler function, and the text to display. The ListComponent is responsible for rendering the entire list of items.
+It takes in an array of items as a prop and maps over them to create a SingleListItem for each item. It also maintains the state of the currently selected item 
+using the useState hook.Whenever the items array changes, the useEffect hook is triggered, which sets the selected index to null to ensure that no item is selected
+by default. When a user clicks on a list item, the handleClick function is called, which updates the selected index state to the index of the clicked item. 
+This causes the isSelected prop of the corresponding SingleListItem to be set to true, highlighting the item in green.Finally, the List component is exported
+as the default export of the module, making it available for use in other React components.
