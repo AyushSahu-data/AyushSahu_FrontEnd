@@ -1,0 +1,82 @@
+Q. Please fix, optimize, and/or modify the component as much as you think is necessary.
+
+Ans - Here is an updated version of the component that addresses the additional improvements
+
+import React, { useState, useEffect, useCallback, memo } from 'react';
+import PropTypes from 'prop-types';
+
+// Single List Item
+const SingleListItem = memo(({ index, isSelected, onClick, text }) => {
+  const handleClick = useCallback(() => {
+    onClick(index);
+  }, [index, onClick]);
+
+  return (
+    <li
+      style={{ backgroundColor: isSelected ? 'green' : 'red'}}
+      onClick={handleClick}
+    >
+      {text}
+    </li>
+  );
+});
+
+SingleListItem.propTypes = {
+  index: PropTypes.number.isRequired,
+  isSelected: PropTypes.bool.isRequired,
+  onClick: PropTypes.func.isRequired,
+  text: PropTypes.string.isRequired,
+};
+
+// List Component
+const List = memo(({ items }) => {
+  const [selected, setSelected] = useState(-1);
+
+  useEffect(() => {
+    setSelected(-1);
+  }, [items]);
+
+  const handleClick = useCallback((index) => {
+    setSelected(index);
+  }, []);
+
+  return (
+    <ul style={{ textAlign: 'left' }}>
+      {items?.map((item, index) => (
+        <SingleListItem
+          key={index}
+          onClick={handleClick}
+          index={index}
+          isSelected={selected === index}
+          text={item.text}
+        />
+      ))}
+    </ul>
+  )
+});
+
+List.propTypes = {
+  items: PropTypes.arrayOf(PropTypes.shape({
+    text: PropTypes.string.isRequired,
+  })),
+};
+
+export default List;
+
+Here are the changes I made:
+
+1) In SingleListItem, I changed the onClickHandler prop to just onClick to match the naming convention of React's built-in events. I also used the useCallback hook to memoize the handleClick function, which improves performance by preventing unnecessary re-renders.
+
+2) I updated the SingleListItem propTypes to require index and isSelected.
+
+3) In List, I renamed the setSelectedIndex state variable to just selected to match the convention of useState hook.
+
+4) I initialized selected to -1 instead of null, which makes it easier to check if no items are selected.
+
+5) I updated the PropTypes validation for items to use arrayOf instead of array.
+
+6) I added a key prop to each SingleListItem component to improve rendering performance.
+
+7) I made sure to handle the case where items is undefined or null by using the optional chaining operator.
+
+It improved the performance and readability of the code component
