@@ -1,0 +1,17 @@
+Q. What problems / warnings are there with code?
+
+Ans - 1) The PropTypes validation for the items prop in WrappedListComponent is incorrect. Instead of PropTypes.array(PropTypes.shapeOf({...})), it should be PropTypes.arrayOf(PropTypes.shape({...})). This will ensure that items is an array of objects with the correct shape.
+
+2) In the SingleListItem component, the onClickHandler prop is not being passed correctly. Instead of onClick={onClickHandler(index)}, it should be onClick={() => onClickHandler(index)}. This ensures that the onClickHandler function is only called when the item is actually clicked, rather than when the component is rendered.
+
+3) The isSelected prop in SingleListItem is being passed incorrectly. Instead of passing isSelected directly, it should be passed as isSelected === index. This will ensure that the background color is only green for the selected item, and red for all other items.
+
+4) There is a typo in the SingleListItem prop types validation. Instead of PropTypes.shapeOf, it should be PropTypes.shape.
+
+5) The index prop in SingleListItem is not marked as required in the propTypes validation. This could potentially cause issues if it is not passed correctly.
+
+6) The setSelectedIndex variable in WrappedListComponent is named incorrectly. It should be setSelected to match the naming convention for useState hooks.
+
+7) The selectedIndex state in WrappedListComponent is not initialized to a value, which could cause issues if it is not set properly later on. It should be initialized to a default value of -1.
+
+8) In the handleClick function in WrappedListComponent, the index argument is not being used correctly. It should be passed as an argument to the setSelected function, like so: setSelected(index).
